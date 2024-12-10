@@ -5,9 +5,9 @@ import 'dotenv/config';
   const { graphql } = await import('@octokit/graphql');
 
   // Configuration
-  const githubToken = ${PAT};
-  const supabaseUrl = ${SUPABASE_URL};
-  const supabaseKey = ${SUPABASE_KEY};
+  const githubToken = process.env.PAT;
+  const supabaseUrl = process.env.SUPABASE_URL;
+  const supabaseKey = process.env.SUPABASE_KEY;
 
   if (!githubToken || !supabaseUrl || !supabaseKey) {
     console.error("Missing environment variables. Ensure PAT, SUPABASE_URL, and SUPABASE_KEY are set.");
