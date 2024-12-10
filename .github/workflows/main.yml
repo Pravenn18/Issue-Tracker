@@ -1,0 +1,31 @@
+name: Sync GitHub Project Items to Supabase
+
+on:
+  schedule:
+    - cron: '*/1 * * * *'
+  workflow_dispatch:
+
+jobs:
+  sync-project-items:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: |
+          npm init -y
+          npm install @octokit/graphql @supabase/supabase-js dotenv
+
+      - name: Sync Project Items
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAT }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+        run: node sync-project-items.js
